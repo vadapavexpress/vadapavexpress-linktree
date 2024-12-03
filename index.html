@@ -3,19 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Vadapav Express Order Form">
-  <title>Vadapav Express Order Form</title>
+  <title>Responsive JotForm Embed</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f9f9f9;
     }
-    iframe {
+    .jotform-container {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* Aspect ratio 16:9 */
+    }
+    .jotform-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       border: none;
@@ -23,30 +25,25 @@
   </style>
 </head>
 <body>
-  <iframe
-    id="JotFormIFrame-241903449215253"
-    title="Main Order Page"
-    onload="window.parent.scrollTo(0,0)"
-    allowtransparency="true"
-    allow="geolocation; microphone; camera; fullscreen"
-    src="https://form.jotform.com/vadapavexpress/main-order-page"
-    scrolling="no"
-  ></iframe>
-  <script src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"></script>
+  <div class="jotform-container">
+    <iframe
+      id="JotFormIFrame-241903449215253"
+      title="Main Order Page"
+      allowtransparency="true"
+      allow="geolocation; microphone; camera; fullscreen"
+      src="https://form.jotform.com/vadapavexpress/main-order-page"
+    ></iframe>
+  </div>
   <script>
-    // Adjust the iframe to the screen size
-    window.addEventListener("resize", function () {
-      const iframe = document.getElementById("JotFormIFrame-241903449215253");
-      iframe.style.height = `${window.innerHeight}px`;
+    window.addEventListener('message', function(e) {
+      var iframe = document.getElementById('JotFormIFrame-241903449215253');
+      if (iframe && e.origin === 'https://form.jotform.com') {
+        var data = JSON.parse(e.data);
+        if (data.height) {
+          iframe.style.height = data.height + 'px';
+        }
+      }
     });
-
-    // Set initial height on page load
-    document.addEventListener("DOMContentLoaded", function () {
-      const iframe = document.getElementById("JotFormIFrame-241903449215253");
-      iframe.style.height = `${window.innerHeight}px`;
-    });
-
-    window.jotformEmbedHandler("iframe[id='JotFormIFrame-241903449215253']", "https://form.jotform.com/");
   </script>
 </body>
 </html>
